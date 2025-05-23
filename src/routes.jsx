@@ -1,3 +1,4 @@
+import Error404 from "./pages/404/404.jsx";
 import Login from "./pages/login/login.jsx";
 import Signup from "./pages/signup/signup.jsx";
 import Tasks from "./pages/tasks/tasks.jsx";
@@ -16,5 +17,9 @@ export const router = createBrowserRouter([
   {
     path: "tasks",
     element: <Tasks />,
+  },
+  {
+    path: "*",
+    element: <Error404 />,
   },
 ]);
