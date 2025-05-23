@@ -1,3 +1,4 @@
+import { FilterBar } from "@/components/filterBar/filterBar.jsx";
 import { TasksCounter } from "@/components/tasksCounter/tasksCounter.jsx";
 
 export default function Tasks() {
@@ -8,11 +9,12 @@ export default function Tasks() {
           <h1 className="font-bold text-2xl mb-8">
             Tasks as on: Wednesday, 1 Jan 2025
           </h1>
-          <div className="flex justify-around">
+          <div className="flex justify-around mb-16">
             <TasksCounter count={4} type="todo" />
             <TasksCounter count={10} type="inProgress" />
             <TasksCounter count={12} type="completed" />
           </div>
+          <FilterBar />
         </div>
       </section>
       <section className="flex basis-1/3"></section>
