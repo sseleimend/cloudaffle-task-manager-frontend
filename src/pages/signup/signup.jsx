@@ -15,10 +15,8 @@ import { SignupSchema } from "@/schema/signup.schema.js";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 
