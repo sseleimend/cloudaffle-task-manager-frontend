@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button.jsx";
 import {
   Card,
   CardContent,
@@ -6,6 +7,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Link } from "react-router";
 
 export default function Signup() {
   return (
@@ -13,14 +16,25 @@ export default function Signup() {
       <div className="w-4/12">
         <Card>
           <CardHeader>
-            <CardTitle>Card Title</CardTitle>
-            <CardDescription>Card Description</CardDescription>
+            <CardTitle>Signup</CardTitle>
+            <CardDescription>
+              Create a new account to start creating tasks
+            </CardDescription>
           </CardHeader>
           <CardContent>
-            <p>Card Content</p>
+            <Input className="mb-4" type="text" placeholder="First Name" />
+            <Input className="mb-4" type="text" placeholder="Last Name" />
+            <Input className="mb-4" type="email" placeholder="Email" />
+            <Input className="mb-4" type="password" placeholder="Password" />
           </CardContent>
-          <CardFooter>
-            <p>Card Footer</p>
+          <CardFooter className="flex flex-row justify-between">
+            <p>
+              Already have an account?{" "}
+              <Link to="/" className="text-blue-500">
+                Login Here
+              </Link>
+            </p>
+            <Button>Signup</Button>
           </CardFooter>
         </Card>
       </div>
