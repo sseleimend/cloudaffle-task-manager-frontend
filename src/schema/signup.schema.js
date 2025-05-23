@@ -13,9 +13,12 @@ export const SignupSchema = z.object({
     .max(100, {
       message: "First name cannot be more than 100 characters.",
     }),
-  lastName: z.string().optional().max(100, {
-    message: "Last name cannot be more than 100 characters.",
-  }),
+  lastName: z
+    .string()
+    .max(100, {
+      message: "Last name cannot be more than 100 characters.",
+    })
+    .optional(),
   email: z.string().email(),
   password: z.string().regex(passwordValidation, {
     message:
