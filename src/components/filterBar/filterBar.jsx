@@ -1,3 +1,4 @@
+import { OrderSelect } from "../orderSelect/orderSelect.jsx";
 import { TaskPagination } from "../taskPagination/taskPagination.jsx";
 
 export function FilterBar() {
@@ -5,7 +6,7 @@ export function FilterBar() {
     <>
       <nav className="flex flex-row justify-between">
         <TaskPagination />
-        <p></p>
+        <OrderSelect />
       </nav>
     </>
   );
