@@ -48,7 +48,11 @@ export default function Signup() {
                   render={({ field }) => (
                     <FormItem className="mb-4">
                       <FormControl>
-                        <Input placeholder="First Name" {...field} />
+                        <Input
+                          placeholder="First Name"
+                          {...field}
+                          value={field.value ?? ""}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -60,7 +64,11 @@ export default function Signup() {
                   render={({ field }) => (
                     <FormItem className="mb-4">
                       <FormControl>
-                        <Input placeholder="Last Name" {...field} />
+                        <Input
+                          placeholder="Last Name"
+                          {...field}
+                          value={field.value ?? ""}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -72,7 +80,11 @@ export default function Signup() {
                   render={({ field }) => (
                     <FormItem className="mb-4">
                       <FormControl>
-                        <Input placeholder="Email" {...field} />
+                        <Input
+                          placeholder="Email"
+                          {...field}
+                          value={field.value ?? ""}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -88,6 +100,7 @@ export default function Signup() {
                           type="password"
                           placeholder="Password"
                           {...field}
+                          value={field.value ?? ""}
                         />
                       </FormControl>
                       <FormMessage />
