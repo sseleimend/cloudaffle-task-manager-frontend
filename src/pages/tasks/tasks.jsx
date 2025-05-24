@@ -22,8 +22,8 @@ function DisplaySkeleton() {
 
 export default function Tasks() {
   const [searchParams] = useSearchParams();
-  let limit = searchParams.get("limit") ?? 5;
-  let page = searchParams.get("page") ?? 1;
+  let limit = Number(searchParams.get("limit") ?? 5);
+  let page = Number(searchParams.get("page") ?? 1);
   let order = searchParams.get("order") ?? "asc";
 
   const { setTasks } = useContext(TasksContext);
