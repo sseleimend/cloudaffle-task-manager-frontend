@@ -7,13 +7,8 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { TasksContext } from "@/context/tasks.context.jsx";
+import { extractQueryString } from "@/lib/extractQueryString.js";
 import { useContext, useEffect, useState } from "react";
-
-function extractQueryString(url) {
-  const parsedURL = new URL(url);
-  const params = new URLSearchParams(parsedURL.search);
-  return params;
-}
 
 export function TaskPagination() {
   const [links, setLinks] = useState();
