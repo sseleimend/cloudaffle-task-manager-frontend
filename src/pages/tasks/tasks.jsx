@@ -3,9 +3,10 @@ import { Task } from "@/components/task/task.jsx";
 import { TasksCounter } from "@/components/tasksCounter/tasksCounter.jsx";
 import { TaskSidebar } from "@/components/taskSidebar/taskSidebar.jsx";
 import { useFetchTasks } from "@/hooks/useFetchTasks.hook.js";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { TasksContext } from "@/context/tasks.context.jsx";
+import { useSearchParams } from "react-router";
 
 function DisplaySkeleton() {
   return (
@@ -20,15 +21,17 @@ function DisplaySkeleton() {
 }
 
 export default function Tasks() {
-  const [order] = useState("asc");
-  const [limit] = useState(5);
-  const [page] = useState(1);
+  const [searchParams] = useSearchParams();
+  let limit = searchParams.get("limit") ?? 5;
+  let page = searchParams.get("page") ?? 1;
+  let order = searchParams.get("order") ?? "asc";
+
   const { setTasks } = useContext(TasksContext);
 
   const { data } = useFetchTasks({
-    order,
-    limit,
-    page,
+    order: order,
+    limit: limit,
+    page: page,
   });
 
   useEffect(() => {
