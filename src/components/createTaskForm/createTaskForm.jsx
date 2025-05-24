@@ -28,19 +28,45 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { CreateTaskSchema } from "@/schema/createTask.schema.js";
+import { useCreateTask } from "@/hooks/createTask.hook.js";
+import { useEffect } from "react";
+import { toast } from "sonner";
+import { Toaster } from "../ui/sonner.jsx";
 
 export function CreateTaskForm() {
   const form = useForm({
     resolver: zodResolver(CreateTaskSchema),
   });
+  const { mutate, isError, isSuccess } = useCreateTask();
 
   function onSubmit(values) {
-    console.log(values);
-
-    let dueDate = JSON.stringify(values.dueDate);
-
-    console.log(dueDate);
+    let dueDate = values.dueDate.toISOString();
+    mutate({
+      ...values,
+      dueDate,
+    });
+    form.reset();
   }
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast("New task created");
+    }
+  }, [isSuccess]);
+
+  useEffect(() => {
+    if (isError) {
+      toast("Uh ho! Your request has failed", {
+        description: "Please try again",
+        style: {
+          backgroundColor: "var(--color-destructive)",
+        },
+        cancel: {
+          label: "X",
+        },
+      });
+    }
+  }, [isError]);
 
   return (
     <div>
@@ -187,6 +213,7 @@ export function CreateTaskForm() {
           </div>
         </form>
       </Form>
+      <Toaster />
     </div>
   );
 }
