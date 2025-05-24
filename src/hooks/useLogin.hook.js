@@ -23,6 +23,15 @@ export function useLogin() {
       Cookies.set("token", response.data.accessToken, {
         expires: 1,
       });
+      Cookies.set(
+        "user",
+        JSON.stringify({
+          firstName: response.data.firstName,
+        }),
+        {
+          expires: 1,
+        }
+      );
     },
     onError: (error) => {
       console.log("Error authenticating", error);
