@@ -32,12 +32,14 @@ import { useCreateTask } from "@/hooks/createTask.hook.js";
 import { useEffect } from "react";
 import { toast } from "sonner";
 import { Toaster } from "../ui/sonner.jsx";
+import { useQueryClient } from "@tanstack/react-query";
 
 export function CreateTaskForm() {
   const form = useForm({
     resolver: zodResolver(CreateTaskSchema),
   });
   const { mutate, isError, isSuccess } = useCreateTask();
+  const queryClient = useQueryClient();
 
   function onSubmit(values) {
     let dueDate = values.dueDate.toISOString();
@@ -51,8 +53,12 @@ export function CreateTaskForm() {
   useEffect(() => {
     if (isSuccess) {
       toast("New task created");
+      queryClient.invalidateQueries({
+        queryKey: ["fetchTasks"],
+        refetchType: "all",
+      });
     }
-  }, [isSuccess]);
+  }, [isSuccess, queryClient]);
 
   useEffect(() => {
     if (isError) {
