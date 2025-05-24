@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import {
   Form,
   FormControl,
@@ -27,6 +27,7 @@ export default function Login() {
     resolver: zodResolver(LoginSchema),
   });
   const { mutate, isError, isSuccess } = useLogin();
+  const navigate = useNavigate();
 
   function onSubmit(values) {
     mutate(values);
@@ -34,8 +35,10 @@ export default function Login() {
   }
 
   useEffect(() => {
-    console.log(isSuccess);
-  }, [isSuccess]);
+    if (isSuccess) {
+      navigate("/tasks");
+    }
+  }, [isSuccess, navigate]);
 
   useEffect(() => {
     console.log(isError);
