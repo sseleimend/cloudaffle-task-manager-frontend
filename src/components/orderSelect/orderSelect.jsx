@@ -14,14 +14,14 @@ import { useNavigate } from "react-router";
 export function OrderSelect() {
   const { tasks } = useContext(TasksContext);
   const [query, setQuery] = useState();
-  const order = tasks
+  const order = tasks?.pagination?.links?.currentPage
     ? extractQueryString(tasks.pagination.links.currentPage).get("order")
     : undefined;
   const [currentOrder, setCurrentOrder] = useState();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (tasks) {
+    if (tasks?.pagination?.links?.currentPage) {
       const currentPage = extractQueryString(
         tasks.pagination.links.currentPage
       );
@@ -29,7 +29,7 @@ export function OrderSelect() {
         ? `/tasks?limit=${currentPage.get("limit")}&page=${currentPage.get(
             "page"
           )}`
-        : "/tasks";
+        : undefined;
       setQuery(query);
     }
   }, [tasks]);

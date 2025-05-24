@@ -15,11 +15,13 @@ export function TaskPagination() {
   const [meta, setMeta] = useState();
   const { tasks } = useContext(TasksContext);
 
-  const previousPage = links
+  const previousPage = links?.previous
     ? extractQueryString(links.previous).toString()
     : "#";
-  const nextPage = links ? extractQueryString(links.next).toString() : "#";
-  const order = links
+  const nextPage = links?.next
+    ? extractQueryString(links.next).toString()
+    : "#";
+  const order = links?.currentPage
     ? extractQueryString(links.currentPage).get("order")
     : "#";
 
