@@ -32,7 +32,18 @@ export default function Tasks() {
               <TasksCounter count={12} type="completed" />
             </div>
             <FilterBar />
-            <Task />
+            {data &&
+              data.data.map((task) => (
+                <Task
+                  key={task["_id"]}
+                  title={task.title}
+                  priority={task.priority}
+                  status={task.status}
+                  dueDate={new Date(task.dueDate)}
+                  description={task.description}
+                  id={task["_id"]}
+                />
+              ))}
           </div>
         </div>
       </section>
