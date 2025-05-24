@@ -21,6 +21,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchema } from "@/schema/login.schema.js";
 import { useLogin } from "@/hooks/useLogin.hook.js";
 import { useEffect } from "react";
+import { Toaster } from "@/components/ui/sonner.jsx";
+import { toast } from "sonner";
 
 export default function Login() {
   const form = useForm({
@@ -41,7 +43,17 @@ export default function Login() {
   }, [isSuccess, navigate]);
 
   useEffect(() => {
-    console.log(isError);
+    if (isError) {
+      toast("Uh ho! Your request has failed", {
+        description: "Please check your login details",
+        style: {
+          backgroundColor: "var(--color-destructive)",
+        },
+        cancel: {
+          label: "X",
+        },
+      });
+    }
   }, [isError]);
 
   return (
@@ -102,6 +114,7 @@ export default function Login() {
           </Form>
         </Card>
       </div>
+      <Toaster />
     </section>
   );
 }
