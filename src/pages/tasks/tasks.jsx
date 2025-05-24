@@ -3,8 +3,9 @@ import { Task } from "@/components/task/task.jsx";
 import { TasksCounter } from "@/components/tasksCounter/tasksCounter.jsx";
 import { TaskSidebar } from "@/components/taskSidebar/taskSidebar.jsx";
 import { useFetchTasks } from "@/hooks/useFetchTasks.hook.js";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { TasksContext } from "@/context/tasks.context.jsx";
 
 function DisplaySkeleton() {
   return (
@@ -22,6 +23,7 @@ export default function Tasks() {
   const [order, setOrder] = useState("asc");
   const [limit, setLimit] = useState(5);
   const [page, setPage] = useState(1);
+  const { tasks, setTasks } = useContext(TasksContext);
 
   const { data, isError, isSuccess } = useFetchTasks({
     order,
@@ -29,7 +31,11 @@ export default function Tasks() {
     page,
   });
 
-  console.log(data);
+  useEffect(() => {
+    if (data) {
+      setTasks(data);
+    }
+  }, [data, setTasks]);
 
   return (
     <section className="flex flex-row w-full p-4 gap-8">
