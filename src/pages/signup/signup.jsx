@@ -20,6 +20,17 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useSignup } from "@/hooks/useSignup.hook.js";
+import { useEffect } from "react";
+import { Toaster } from "@/components/ui/sonner.jsx";
+import { toast } from "sonner";
+
+function LoginRedirect() {
+  return (
+    <Button variant="secondary" asChild>
+      <Link to="/">Login Here</Link>
+    </Button>
+  );
+}
 
 export default function Signup() {
   const { mutate, isLoading, isError, isSuccess } = useSignup();
@@ -31,6 +42,29 @@ export default function Signup() {
     mutate(values);
     form.reset();
   }
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast("User created successfully", {
+        description: "You can now login and start creating tasks",
+        action: <LoginRedirect />,
+      });
+    }
+  }, [isSuccess]);
+
+  useEffect(() => {
+    if (isError) {
+      toast("Uh ho! Your request has failed", {
+        description: "User already exists",
+        style: {
+          backgroundColor: "var(--color-destructive)",
+        },
+        cancel: {
+          label: "X",
+        },
+      });
+    }
+  }, [isError]);
 
   return (
     <section className="flex flex-row w-full max-w-7xl min-h-screen justify-center items-center">
@@ -124,6 +158,7 @@ export default function Signup() {
           </Form>
         </Card>
       </div>
+      <Toaster />
     </section>
   );
 }
