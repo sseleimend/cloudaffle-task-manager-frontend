@@ -41,7 +41,7 @@ export default function Tasks() {
   let page = Number(searchParams.get("page") ?? 1);
   let order = searchParams.get("order") ?? "asc";
 
-  const { setTasks } = useContext(TasksContext);
+  const { tasks, setTasks } = useContext(TasksContext);
 
   const { data } = useFetchTasks({
     order: order,
@@ -55,6 +55,8 @@ export default function Tasks() {
     }
   }, [data, setTasks]);
 
+  console.log(data);
+
   return (
     <section className="flex flex-row w-full p-4 gap-8">
       <section className="flex  basis-2/3 justify-center">
@@ -64,9 +66,18 @@ export default function Tasks() {
           </h1>
           <div className="w-11/12 flex flex-col">
             <div className="flex justify-between mb-16">
-              <TasksCounter count={4} type="todo" />
-              <TasksCounter count={10} type="inProgress" />
-              <TasksCounter count={12} type="completed" />
+              <TasksCounter
+                count={tasks ? tasks.pagination.meta.todoTasks : 0}
+                type="todo"
+              />
+              <TasksCounter
+                count={tasks ? tasks.pagination.meta.inProgressTasks : 0}
+                type="inProgress"
+              />
+              <TasksCounter
+                count={tasks ? tasks.pagination.meta.completedTasks : 0}
+                type="completed"
+              />
             </div>
             <FilterBar />
             {!data &&
