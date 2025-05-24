@@ -7,26 +7,56 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { TasksContext } from "@/context/tasks.context.jsx";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+
+function extractQueryString(url) {
+  const parsedURL = new URL(url);
+  const params = new URLSearchParams(parsedURL.search);
+  return params;
+}
 
 export function TaskPagination() {
+  const [links, setLinks] = useState();
+  const [meta, setMeta] = useState();
   const { tasks } = useContext(TasksContext);
-  console.log(tasks);
+
+  const previousPage = links
+    ? extractQueryString(links.previous).toString()
+    : "#";
+  const nextPage = links ? extractQueryString(links.next).toString() : "#";
+  const order = links
+    ? extractQueryString(links.currentPage).get("order")
+    : "#";
+
+  useEffect(() => {
+    if (tasks) {
+      setLinks(tasks.pagination.links);
+      setMeta(tasks.pagination.meta);
+    }
+  }, [tasks]);
 
   return (
     <Pagination>
       <PaginationContent>
         <PaginationItem>
-          <PaginationPrevious href="#" />
+          <PaginationPrevious href={`/tasks?${previousPage}`} />
         </PaginationItem>
+        {meta &&
+          [...Array(meta.totalPages)].map((_, index) => (
+            <PaginationItem key={`pag${index}`}>
+              <PaginationLink
+                href={`/tasks/?limit=${meta.itemsPerPage}&page=${
+                  index + 1
+                }&order=${order}`}
+                isActive={index + 1 === meta.currentPage}
+              >
+                {index + 1}
+              </PaginationLink>
+            </PaginationItem>
+          ))}
+
         <PaginationItem>
-          <PaginationLink href="#">1</PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#">2</PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationNext href="#" />
+          <PaginationNext href={`/tasks?${nextPage}`} />
         </PaginationItem>
       </PaginationContent>
     </Pagination>
