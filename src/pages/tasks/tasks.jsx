@@ -20,12 +20,12 @@ function DisplaySkeleton() {
 }
 
 export default function Tasks() {
-  const [order, setOrder] = useState("asc");
-  const [limit, setLimit] = useState(5);
-  const [page, setPage] = useState(1);
-  const { tasks, setTasks } = useContext(TasksContext);
+  const [order] = useState("asc");
+  const [limit] = useState(5);
+  const [page] = useState(1);
+  const { setTasks } = useContext(TasksContext);
 
-  const { data, isError, isSuccess } = useFetchTasks({
+  const { data } = useFetchTasks({
     order,
     limit,
     page,
