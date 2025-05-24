@@ -17,6 +17,7 @@ export function Task({
   status = "todo",
   priority = "normal",
   dueDate = new Date("2025-01-01T12:00:00.000Z"),
+  id,
 }) {
   let formattedDate = dueDate.toLocaleDateString("en-US", {
     day: "numeric",
