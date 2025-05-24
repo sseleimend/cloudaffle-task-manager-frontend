@@ -55,6 +55,13 @@ export function Task({
     });
   }
 
+  function handleTaskCompleted() {
+    mutate({
+      _id: id,
+      status: "completed",
+    });
+  }
+
   return (
     <Card className="w-full mb-8">
       <CardHeader className="flex flex-row justify-between items-center">
@@ -86,7 +93,7 @@ export function Task({
             In Progress
           </Label>
         </div>
-        <Button>Completed</Button>
+        <Button onClick={handleTaskCompleted}>Completed</Button>
       </CardFooter>
     </Card>
   );
